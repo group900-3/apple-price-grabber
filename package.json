@@ -1,0 +1,15 @@
+{
+  "name": "price-grabber",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "witcat",
+  "license": "ISC",
+  "devDependencies": {
+    "tsx": "^4.15.7"
+  }
+}
