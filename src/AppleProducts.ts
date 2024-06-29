@@ -1,34 +1,5 @@
-/**
- * for match price data to macrumors buyers guide.
- * the category following to macrumors buyers guide category.
- */
-interface Category {
-  name: string;
-  products: (ProductWithPath | ProductWithRule)[];
-}
-
-/**
- * just append this to products when new apple thing released.
- */
-interface ProductBase {
-  name: string;
-}
-
-interface ProductWithPath extends ProductBase {
-  /** path for scrape content on apple.com */
-  appleComPath: string;
-}
-
-interface ProductWithRule extends ProductBase {
-  /**
-   * sometimes shop page is different in any country.
-   * provide a rule to get shop page.
-   * @type {[string, string]} [path,selector] get href from path by selector
-   */
-  appleComRule: [string, string];
-}
-
-const PATH_PREFIX = "/shop";
+import { PATH_PREFIX } from "./constants";
+import { Category } from "./types";
 
 export const products: Category[] = [
   {
@@ -101,32 +72,50 @@ export const products: Category[] = [
     products: [
       {
         name: "AirPods Pro 2",
-        appleComRule: ["/airpods-pro/", "a.ac-ln-button"],
+        appleComRule: ["/airpods-pro", "a.ac-ln-button"],
       },
       {
         name: "AirPods 3",
-        appleComRule: ["/airpods-3rd-generation/", "a.ac-ln-button"],
+        appleComRule: ["/airpods-3rd-generation", "a.ac-ln-button"],
       },
       {
         name: "AirPods 2",
-        appleComRule: ["/airpods-2nd-generation/", "a.ac-ln-button"],
+        appleComRule: ["/airpods-2nd-generation", "a.ac-ln-button"],
       },
-      { name: "AirPods Max", appleComPath: "/buy-airpods/airpods-max" },
-      { name: "HomePod", appleComPath: "/buy-homepod/homepod" },
-      { name: "HomePod Mini", appleComPath: "/buy-homepod/homepod-mini" },
+      {
+        name: "AirPods Max",
+        appleComPath: `${PATH_PREFIX}/buy-airpods/airpods-max`,
+      },
+      { name: "HomePod", appleComPath: `${PATH_PREFIX}/buy-homepod/homepod` },
+      {
+        name: "HomePod Mini",
+        appleComPath: `${PATH_PREFIX}/buy-homepod/homepod-mini`,
+      },
     ],
   },
   {
     name: "Other",
     products: [
-      { name: "Vision Pro", appleComPath: "/buy-vision/apple-vision-pro" },
+      {
+        name: "Vision Pro",
+        appleComPath: `${PATH_PREFIX}/buy-vision/apple-vision-pro`,
+      },
       {
         name: "Apple Watch Ultra",
-        appleComPath: "/buy-watch/apple-watch-ultra",
+        appleComPath: `${PATH_PREFIX}/buy-watch/apple-watch-ultra`,
       },
-      { name: "Apple Watch", appleComPath: "/buy-watch/apple-watch" },
-      { name: "Apple Watch SE", appleComPath: "buy-watch/apple-watch-se" },
-      { name: "Apple TV 4K", appleComPath: "buy-tv/apple-tv-4k" },
+      {
+        name: "Apple Watch",
+        appleComPath: `${PATH_PREFIX}/buy-watch/apple-watch`,
+      },
+      {
+        name: "Apple Watch SE",
+        appleComPath: `${PATH_PREFIX}/buy-watch/apple-watch-se`,
+      },
+      {
+        name: "Apple TV 4K",
+        appleComPath: `${PATH_PREFIX}/buy-tv/apple-tv-4k`,
+      },
     ],
   },
 ];

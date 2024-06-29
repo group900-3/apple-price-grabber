@@ -1,13 +1,7 @@
-interface CountryInfoBase {
-  name: string;
-  currencyCode: string;
-}
-
-type CountryInfoWithPath = CountryInfoBase & { path: string };
-type CountryInfoWithDomain = CountryInfoBase & { domain: string };
+import { Country } from "./types";
 
 export const countries: {
-  [key: string]: CountryInfoWithPath | CountryInfoWithDomain;
+  [key: string]: Country;
 } = {
   US: { name: "United States", currencyCode: "USD", path: "/us" },
   AU: { name: "Australia", currencyCode: "AUD", path: "/au" },
@@ -18,7 +12,7 @@ export const countries: {
   CN: {
     name: "China mainland",
     currencyCode: "CNY",
-    domain: "https://www.apple.com.cn/",
+    domain: "https://www.apple.com.cn",
   },
   FR: { name: "France", currencyCode: "EUR", path: "/fr" },
   DE: { name: "Germany", currencyCode: "EUR", path: "/de" },
