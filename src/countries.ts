@@ -20,7 +20,6 @@ export const countries: {
   IN: { name: "India", currencyCode: "INR", path: "/in" },
   IT: { name: "Italy", currencyCode: "EUR", path: "/it" },
   JP: { name: "Japan", currencyCode: "JPY", path: "/jp" },
-  MO: { name: "Macao", currencyCode: "MOP", path: "/mo" },
   MY: { name: "Malaysia", currencyCode: "MYR", path: "/my" },
   MX: { name: "Mexico", currencyCode: "MXN", path: "/mx" },
   NL: { name: "Netherlands", currencyCode: "EUR", path: "/nl" },
