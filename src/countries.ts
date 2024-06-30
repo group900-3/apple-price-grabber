@@ -3,7 +3,7 @@ import { Country } from "./types";
 export const countries: {
   [key: string]: Country;
 } = {
-  US: { name: "United States", currencyCode: "USD", path: "/us" },
+  US: { name: "United States", currencyCode: "USD", path: "" },
   AU: { name: "Australia", currencyCode: "AUD", path: "/au" },
   AT: { name: "Austria", currencyCode: "EUR", path: "/at" },
   BE: { name: "Belgium", currencyCode: "EUR", path: "/befr" },
@@ -12,7 +12,7 @@ export const countries: {
   CN: {
     name: "China mainland",
     currencyCode: "CNY",
-    path: "cn",
+    path: "/cn",
   },
   FR: { name: "France", currencyCode: "EUR", path: "/fr" },
   DE: { name: "Germany", currencyCode: "EUR", path: "/de" },
