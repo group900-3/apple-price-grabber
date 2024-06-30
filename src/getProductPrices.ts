@@ -15,19 +15,15 @@ const getPathByRule = async (
   return href;
 };
 
-const getFullURL = async (productInfo: Product, countryInfo: Country) => {
-  const withDifferentDomain = "domain" in countryInfo;
+const getFullURL = async (productInfo: Product, { path }: Country) => {
+  if ("appleComPath" in productInfo)
+    return `${APPLE}${path}${productInfo.appleComPath}`;
 
-  let site = withDifferentDomain
-    ? countryInfo.domain
-    : `${APPLE}${countryInfo.path}`;
-  if ("appleComRule" in productInfo) {
-    const path = await getPathByRule(productInfo.appleComRule, site);
-    // remove duplicated country code
-    const origin = new URL(site).origin;
-    return `${origin}${path}`;
-  }
-  return `${site}${productInfo.appleComPath}`;
+  const shopPath = await getPathByRule(
+    productInfo.appleComRule,
+    `${APPLE}${path}`
+  );
+  return `${APPLE}${shopPath}`;
 };
 
 export const getProductPrices = async (

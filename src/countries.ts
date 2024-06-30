@@ -12,7 +12,7 @@ export const countries: {
   CN: {
     name: "China mainland",
     currencyCode: "CNY",
-    domain: "https://www.apple.com.cn",
+    path: "cn",
   },
   FR: { name: "France", currencyCode: "EUR", path: "/fr" },
   DE: { name: "Germany", currencyCode: "EUR", path: "/de" },

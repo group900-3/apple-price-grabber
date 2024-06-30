@@ -1,17 +1,8 @@
-interface CountryInfoBase {
+export interface Country {
   name: string;
   currencyCode: string;
-}
-
-interface CountryInfoWithPath extends CountryInfoBase {
   path: string;
 }
-
-interface CountryInfoWithDomain extends CountryInfoBase {
-  domain: string;
-}
-
-export type Country = CountryInfoWithPath | CountryInfoWithDomain;
 
 /**
  * for match price data to macrumors buyers guide.
