@@ -6,7 +6,7 @@ export const countries: {
   US: { name: "United States", currencyCode: "USD", path: "" },
   AU: { name: "Australia", currencyCode: "AUD", path: "/au" },
   AT: { name: "Austria", currencyCode: "EUR", path: "/at" },
-  BE: { name: "Belgium", currencyCode: "EUR", path: "/befr" },
+  BE: { name: "Belgium", currencyCode: "EUR", path: "/be-fr" },
   BR: { name: "Brazil", currencyCode: "BRL", path: "/br" },
   CA: { name: "Canada", currencyCode: "CAD", path: "/ca" },
   CN: {
@@ -27,7 +27,7 @@ export const countries: {
   KR: { name: "South Korea", currencyCode: "KRW", path: "/kr" },
   ES: { name: "Spain", currencyCode: "EUR", path: "/es" },
   SE: { name: "Sweden", currencyCode: "SEK", path: "/se" },
-  CH: { name: "Switzerland", currencyCode: "CHF", path: "/chfr" },
+  CH: { name: "Switzerland", currencyCode: "CHF", path: "/ch-fr" },
   TW: { name: "Taiwan", currencyCode: "TWD", path: "/tw" },
   TH: { name: "Thailand", currencyCode: "THB", path: "/th" },
   TR: { name: "Turkey", currencyCode: "TRY", path: "/tr" },
