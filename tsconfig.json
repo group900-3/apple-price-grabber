@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
+    "esModuleInterop": true,
     // Strict Checks
     "alwaysStrict": true,
     "noImplicitAny": true,
