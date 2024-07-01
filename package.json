@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "run-scrape": "tsx ./src/main.ts",
-    "test": "vitest"
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
   },
   "keywords": [],
   "author": "witcat",
   "license": "ISC",
   "devDependencies": {
     "@types/is-url": "^1.2.32",
+    "@vitest/coverage-v8": "^1.6.0",
     "is-url": "^1.2.4",
     "tsx": "^4.15.7",
     "typescript": "^5.5.2",

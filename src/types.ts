@@ -18,6 +18,8 @@ export interface Category {
  */
 interface ProductBase {
   name: string;
+  selector: string;
+  config?: string;
 }
 
 export interface ProductWithPath extends ProductBase {

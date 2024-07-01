@@ -18,12 +18,15 @@ const getPathByRule = async (
 };
 
 export const getShopURL = async (productInfo: Product, { path }: Country) => {
-  if ("appleComPath" in productInfo)
-    return `${APPLE}${path}${productInfo.appleComPath}`;
-
-  const shopPath = await getPathByRule(
-    productInfo.appleComRule,
-    `${APPLE}${path}`
-  );
-  return `${APPLE}${shopPath}`;
+  let url = "";
+  if ("appleComPath" in productInfo) {
+    url = `${APPLE}${path}${productInfo.appleComPath}`;
+  } else {
+    const shopPath = await getPathByRule(
+      productInfo.appleComRule,
+      `${APPLE}${path}`
+    );
+    url = `${APPLE}${shopPath}`;
+  }
+  return productInfo.config ? `${url}?${productInfo.config}` : url;
 };
