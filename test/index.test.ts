@@ -52,9 +52,7 @@ describe("scrape price", () => {
     "should get price in number with $product.name in $country.name",
     async ({ country, product }) => {
       const url = await getShopURL(product, country);
-      expect(await getProductPrices(url, product.selector)).toBeTypeOf(
-        "number"
-      );
+      expect(await getProductPrices(url, product.selector)).toBeGreaterThan(0);
     }
   );
 });
