@@ -1,10 +1,12 @@
+import { Metrics } from "./types";
 import { loadContents } from "./utils";
 import * as cheerio from "cheerio";
 
-export const getProductPrices = async (shopUrl: string, selector: string) => {
+export const getProductPrices = async (shopUrl: string) => {
   const res = await loadContents(shopUrl);
   const $ = cheerio.load(res);
-  const text = $(selector).text();
-  const price = text.replace(/[^0-9.]/g, "");
-  return Math.floor(+price);
+  const metricsScript = $("#metrics").html();
+  if (!metricsScript) throw new Error("No metrics on this page");
+  const metrics = JSON.parse(metricsScript) as Metrics;
+  return metrics.data.products[0]?.price.fullPrice;
 };

@@ -22,3 +22,14 @@ export interface Product {
   appleComPath: string;
   config?: string;
 }
+
+export interface Metrics {
+  data: {
+    products: {
+      name: string;
+      price: {
+        fullPrice: number;
+      };
+    }[];
+  };
+}
