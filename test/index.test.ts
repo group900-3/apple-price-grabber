@@ -5,7 +5,7 @@ import { describe, expect, it } from "vitest";
 import { Country, Product } from "../src/types";
 import isURL from "is-url";
 import pRetry from "p-retry";
-import { getProductPrices } from "../src/getProductPrices";
+import { getPriceWithShopURL } from "../src/getProductPrices";
 
 const allProducts = products.reduce(
   (acc, category) => [...acc, ...category.products],
@@ -33,7 +33,7 @@ describe("shop url", () => {
   it.concurrent.each(pairs)(
     "should generate valid URL with $product.name in $country.name",
     async ({ country, product }) => {
-      const url = await getShopURL(product, country);
+      const url = await getShopURL(product, country.path);
       expect(url).toSatisfy(isURL);
       expect(
         await pRetry(
@@ -51,9 +51,9 @@ describe("scrape price", () => {
   it.concurrent.each(pairs)(
     "should get price in number with $product.name in $country.name",
     async ({ country, product }) => {
-      const url = await getShopURL(product, country);
+      const url = await getShopURL(product, country.path);
       try {
-        const price = await getProductPrices(url);
+        const price = await getPriceWithShopURL(url);
         expect(price).toBeGreaterThan(0);
       } catch (error) {
         // sometimes it throw an error if some product not sells in some country, for example homepod in philippines.

@@ -1,8 +1,8 @@
 import { APPLE } from "./constants";
-import { Country, Product } from "./types";
+import { Product } from "./types";
 
-export const getShopURL = async (productInfo: Product, { path }: Country) => {
-  let url = `${APPLE}${path}${productInfo.appleComPath}`;
+export const getShopURL = (productInfo: Product, countryPath: string) => {
+  let url = `${APPLE}${countryPath}${productInfo.appleComPath}`;
   if (productInfo.config) url += productInfo.config;
   return url;
 };
