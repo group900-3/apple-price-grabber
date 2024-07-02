@@ -16,24 +16,9 @@ export interface Category {
 /**
  * just append this to products when new apple thing released.
  */
-interface ProductBase {
+export interface Product {
   name: string;
-  selector: string;
-  config?: string;
-}
-
-export interface ProductWithPath extends ProductBase {
   /** path for scrape content on apple.com */
   appleComPath: string;
+  config?: string;
 }
-
-export interface ProductWithRule extends ProductBase {
-  /**
-   * sometimes shop page is different in any country.
-   * provide a rule to get shop page.
-   * @type {[string, string]} [path,selector] get href from path by selector
-   */
-  appleComRule: [string, string];
-}
-
-export type Product = ProductWithPath | ProductWithRule;
