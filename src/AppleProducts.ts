@@ -105,4 +105,29 @@ export const products: Category[] = [
       },
     ],
   },
+  {
+    name: "Watch/Other",
+    products: [
+      {
+        name: "Vision Pro",
+        appleComPath: `${PATH_PREFIX}/buy-vision/apple-vision-pro`,
+      },
+      {
+        name: "Apple Watch",
+        appleComPath: `${PATH_PREFIX}/buy-watch/apple-watch`,
+      },
+      {
+        name: "Apple Watch SE",
+        appleComPath: `${PATH_PREFIX}/buy-watch/apple-watch-se`,
+      },
+      {
+        name: "Apple Watch Ultra",
+        appleComPath: `${PATH_PREFIX}/buy-watch/apple-watch-ultra`,
+      },
+      {
+        name: "Apple TV",
+        appleComPath: `${PATH_PREFIX}/buy-tv/apple-tv-4k`,
+      },
+    ],
+  },
 ];

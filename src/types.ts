@@ -33,3 +33,15 @@ export interface Metrics {
     }[];
   };
 }
+
+export interface ProductSelectionBootstrap {
+  productSelectionData: {
+    displayValues: {
+      prices: {
+        [type: string]: {
+          amount: number;
+        };
+      };
+    };
+  };
+}

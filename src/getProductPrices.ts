@@ -1,15 +1,58 @@
 import { getShopURL } from "./getShopURL";
-import { Category, Country, Metrics, Product } from "./types";
+import {
+  Category,
+  Country,
+  Metrics,
+  Product,
+  ProductSelectionBootstrap,
+} from "./types";
 import { loadContents, processObjectConcurrently } from "./utils";
 import * as cheerio from "cheerio";
 
-export const getPriceWithShopURL = async (shopURL: string) => {
-  const res = await loadContents(shopURL);
-  const $ = cheerio.load(res);
+const looseJSONParse: <T>(obj: string) => T | null = (obj) => {
+  try {
+    return eval(`(${obj})`);
+  } catch (error) {
+    console.error("Error parsing JSON:", error);
+    return null;
+  }
+};
+
+export const getPriceFromProductSelectionBootstrap = (
+  $: cheerio.CheerioAPI,
+  target: string
+) => {
+  const targetScript = $("script")
+    .map((_, el) => $(el).html())
+    .toArray()
+    .find((v) => v.includes("PRODUCT_SELECTION_BOOTSTRAP"));
+
+  if (!targetScript)
+    throw new Error("No product bootstrap script on this page");
+  const trimed = targetScript.trim();
+  const objectStr = (trimed.endsWith(";") ? trimed.slice(0, -1) : trimed)
+    .replace(/\\\"/g, "")
+    .replace("window.PRODUCT_SELECTION_BOOTSTRAP = ", "");
+  const obj = looseJSONParse<ProductSelectionBootstrap>(objectStr);
+  const price =
+    obj?.productSelectionData.displayValues.prices[target]?.amount || null;
+
+  if (!price) throw new Error("can not locate price in bootstrap object");
+
+  return price;
+};
+
+const getPriceFromMetrics = ($: cheerio.CheerioAPI) => {
   const metricsScript = $("#metrics").html();
   if (!metricsScript) throw new Error("No metrics on this page");
   const metrics = JSON.parse(metricsScript) as Metrics;
   return metrics.data.products[0]!.price.fullPrice;
+};
+
+export const getPriceWithShopURL = async (shopURL: string) => {
+  const res = await loadContents(shopURL);
+  const $ = cheerio.load(res);
+  return getPriceFromMetrics($);
 };
 
 const getProductPricesByCountry = (
