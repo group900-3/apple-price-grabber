@@ -13,6 +13,17 @@ export interface Category {
   products: Product[];
 }
 
+export enum ScrapeRule {
+  /**
+   * get price from metric json
+   */
+  Metric,
+  /**
+   * get price from product bootstrap object in script tag
+   */
+  ProductBootstrap,
+}
+
 /**
  * just append this to products when new apple thing released.
  */
@@ -21,6 +32,7 @@ export interface Product {
   /** path for scrape content on apple.com */
   appleComPath: string;
   config?: string;
+  rule: ScrapeRule;
 }
 
 export interface Metrics {

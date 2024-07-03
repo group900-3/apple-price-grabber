@@ -6,17 +6,12 @@ import {
   Product,
   ProductSelectionBootstrap,
 } from "./types";
-import { loadContents, processObjectConcurrently } from "./utils";
+import {
+  loadContents,
+  looseJSONParse,
+  processObjectConcurrently,
+} from "./utils";
 import * as cheerio from "cheerio";
-
-const looseJSONParse: <T>(obj: string) => T | null = (obj) => {
-  try {
-    return eval(`(${obj})`);
-  } catch (error) {
-    console.error("Error parsing JSON:", error);
-    return null;
-  }
-};
 
 export const getPriceFromProductSelectionBootstrap = (
   $: cheerio.CheerioAPI,

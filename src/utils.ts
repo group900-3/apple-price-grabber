@@ -25,3 +25,12 @@ export const processObjectConcurrently = async <T>(obj: {
   // Combine all results into a single object
   return results.reduce((acc, curr) => ({ ...acc, ...curr }), {});
 };
+
+export const looseJSONParse: <T>(obj: string) => T | null = (obj) => {
+  try {
+    return eval(`(${obj})`);
+  } catch (error) {
+    console.error("Error parsing JSON:", error);
+    return null;
+  }
+};
