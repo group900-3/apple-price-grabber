@@ -33,7 +33,7 @@ export interface Product {
   appleComPath: string;
   subPath?: string;
   rule: ScrapeRule;
-  /** 
+  /**
    * there are a lot hardware configs for most apple products..
    * but we only scrape entry-level config price now.
    */
@@ -44,6 +44,7 @@ export interface Metrics {
   data: {
     products: {
       name: string;
+      sku: string;
       price: {
         fullPrice: number;
       };

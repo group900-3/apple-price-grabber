@@ -5,6 +5,7 @@ import {
   Metrics,
   Product,
   ProductSelectionBootstrap,
+  ScrapeRule,
 } from "./types";
 import {
   loadContents,
@@ -29,25 +30,30 @@ export const getPriceFromProductSelectionBootstrap = (
     .replace(/\\\"/g, "")
     .replace("window.PRODUCT_SELECTION_BOOTSTRAP = ", "");
   const obj = looseJSONParse<ProductSelectionBootstrap>(objectStr);
-  const price =
-    obj?.productSelectionData.displayValues.prices[target]?.amount || null;
-
-  if (!price) throw new Error("can not locate price in bootstrap object");
-
+  const product = obj?.productSelectionData.displayValues.prices[target];
+  if (!product) throw new Error("can not locate product in product bootstrap");
+  const price = product.amount;
   return price;
 };
 
-const getPriceFromMetrics = ($: cheerio.CheerioAPI) => {
+export const getPriceFromMetrics = ($: cheerio.CheerioAPI, sku: string) => {
   const metricsScript = $("#metrics").html();
   if (!metricsScript) throw new Error("No metrics on this page");
   const metrics = JSON.parse(metricsScript) as Metrics;
-  return metrics.data.products[0]!.price.fullPrice;
+  const product = metrics.data.products.find((p) => p.sku === sku);
+  if (!product) throw new Error("can not locate product in metrics");
+  return product.price.fullPrice;
 };
 
-export const getPriceWithShopURL = async (shopURL: string) => {
+export const getPriceWithShopURL = async (
+  shopURL: string,
+  product: Product
+) => {
   const res = await loadContents(shopURL);
   const $ = cheerio.load(res);
-  return getPriceFromMetrics($);
+  return product.rule === ScrapeRule.Metric
+    ? getPriceFromMetrics($, product.key)
+    : getPriceFromProductSelectionBootstrap($, product.key);
 };
 
 const getProductPricesByCountry = (
@@ -59,7 +65,7 @@ const getProductPricesByCountry = (
   const countryPriceMap: { [key: string]: Promise<number | null> } = {};
   for (const [countryCode, country] of Object.entries(countries)) {
     const shopPath = getShopURL(product, country.path);
-    const price = getPriceWithShopURL(shopPath).catch(() => {
+    const price = getPriceWithShopURL(shopPath, product).catch(() => {
       console.warn(`scrape price failed on ${product.name} in ${country.name}`);
       return null;
     });
