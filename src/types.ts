@@ -31,8 +31,13 @@ export interface Product {
   name: string;
   /** path for scrape content on apple.com */
   appleComPath: string;
-  config?: string;
+  subPath?: string;
   rule: ScrapeRule;
+  /** 
+   * there are a lot hardware configs for most apple products..
+   * but we only scrape entry-level config price now.
+   */
+  key: string;
 }
 
 export interface Metrics {
