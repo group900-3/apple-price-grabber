@@ -5,16 +5,14 @@ import { describe, expect, it } from "vitest";
 import { Country, Product, ScrapeRule } from "../src/types";
 import isURL from "is-url";
 import pRetry from "p-retry";
-import {
-  getPriceWithShopURL,
-} from "../src/getProductPrices";
+import { getPriceWithShopURL } from "../src/getProductPrices";
 import { PATH_PREFIX } from "../src/constants";
 
 const macbookPro: Product = {
-  name: '16" MacBook Pro',
-  appleComPath: `${PATH_PREFIX}/buy-mac/macbook-pro/16-inch`,
+  name: '14" MacBook Pro',
+  appleComPath: `${PATH_PREFIX}/buy-mac/macbook-pro`,
   rule: ScrapeRule.Metric,
-  key: "MRW43",
+  key: "14-inch MacBook Pro - Silver",
 };
 
 const appleWatchUltra: Product = {

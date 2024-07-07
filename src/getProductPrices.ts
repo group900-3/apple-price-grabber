@@ -36,13 +36,18 @@ export const getPriceFromProductSelectionBootstrap = (
   return price;
 };
 
-export const getPriceFromMetrics = ($: cheerio.CheerioAPI, sku: string) => {
+export const getPriceFromMetrics = ($: cheerio.CheerioAPI, name: string) => {
   const metricsScript = $("#metrics").html();
   if (!metricsScript) throw new Error("No metrics on this page");
   const metrics = JSON.parse(metricsScript) as Metrics;
-  const product = metrics.data.products.find((p) => p.sku === sku);
-  if (!product) throw new Error("can not locate product in metrics");
-  return product.price.fullPrice;
+  const matchedProducts = metrics.data.products.filter((p) => {
+    return p.name.replace(/\s/g, "") === name.replace(/\s/g, "");
+  });
+  if (!matchedProducts.length)
+    throw new Error("can not locate product in metrics");
+  if (matchedProducts.length === 1) return matchedProducts[0]!.price.fullPrice;
+  const prices = matchedProducts.map((p) => p.price.fullPrice);
+  return Math.min(...prices);
 };
 
 export const getPriceWithShopURL = async (
